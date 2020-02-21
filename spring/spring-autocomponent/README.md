@@ -1,7 +1,87 @@
-### 1.1  测试页面
+[toc]
 
-关于 spring 整合 Redis 本用例提供两种整合方法：
+![spring](https://img.shields.io/badge/spring-5.1.3.RELEASE-brightgreen.svg)     ![author](https://img.shields.io/badge/author-quhaichuan-orange.svg)     ![jdk](https://img.shields.io/badge/jdk->=1.8-blue.svg)
 
-+ **Jedis**: 官方推荐的 java 客户端，能够胜任 Redis 的大多数基本使用；
+## **Spring基础-自动装配**
 
-+ **Redisson**：也是官方推荐的客户端，比起 Redisson 提供了更多高级的功能，如分布式锁、集合数据切片等功能。同时提供了丰富而全面的中英文版本的说明文档。
+Spring从两个角度来实现自动化装配：
+
+- **组件扫描 **  (component scanning):Spring会使用**@ComponentScan**自动发现应用上下文中所创建的bean；
+- **自动装配**   (autowiring):通过使用**@Autowired**注解，自动满足bean之间的依赖。
+
+<br/>
+
+## **示例解析**
+
+我们通常的概念是，一个CD碟片(Disc)需要放到CD播放机(DiscDriver)里才可以播放碟片弄的内容，我们以这个模型来认识Spring的自动装配。
+
+### 注解-@Component
+
+```
+package com.qhc.cdplayer;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Disc {
+    //This is a Disc and it can be played by DiscDriver
+    private String content="This is a beautiful music";
+    public String getContent() {
+        return content;
+    }
+    public void setContent(String content) {
+        this.content = content;
+    }
+}
+```
+
+这里使用@Component表明该类作为组件类，告知Spring要为这个类创建bean;其他地方出现的这个注解同。
+
+可以使用@Component("beanName")为bean指定名称。
+
+
+
+### 注解-@ComponentScan
+
+```
+package com.qhc.cdplayer;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "com.qhc.cdplayer")
+public class DiscDriverConfig {
+}
+```
+
+这里使用@ComponentScan是要扫描basePackages目录下的所有有@Component注解的类。默认扫描与这个配置类相同的包以及对应的子包，通过basePackages指定扫描目录。
+
+### 注解-@Autowired
+
+```
+package com.qhc.cdplayer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DiscDriver {
+    @Autowired
+    private Disc disc;
+    
+    public void paly(){
+        System.out.println(disc.getContent());
+    }
+}
+```
+
+在disc成员变量上添加@Autowired注解，在创建bean的时候会自动再Spring应用上下文中寻找匹配Disc需求的bean,并把它注入进来。除了成员变量，还可以用到setter方法上。
+
+### 测试结果
+
+```
+在控制台打印：This is a beautiful music
+```
+
+
+
+
+

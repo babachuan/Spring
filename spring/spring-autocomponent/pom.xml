@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.qhc</groupId>
-    <artifactId>spring-autocomponent</artifactId>
+    <groupId>com.qhc</groupId>
+    <artifactId>spring-autocompnent</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -17,12 +17,20 @@
     </properties>
 
     <dependencies>
-        <dependency><!--单元测试-->
+        <!--单元测试-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
-
         <dependency><!--引入spring框架-->
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
