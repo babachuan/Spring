@@ -1,4 +1,4 @@
-![spring](https://note.youdao.com/yws/public/resource/13ff7d046b0aa4afd087ac0c813282a0/xmlnote/DCD1D3E5E6BE439D80D0C72CFA56BBDE/14154)     ![author](https://note.youdao.com/yws/public/resource/13ff7d046b0aa4afd087ac0c813282a0/xmlnote/5DCCD9D067AE4CB8A26075FD71D85EEC/14157)     ![jdk](https://note.youdao.com/yws/public/resource/13ff7d046b0aa4afd087ac0c813282a0/xmlnote/ADD606CFAA3A436CAF6BF198004AA008/14159)
+![spring](https://img.shields.io/badge/spring-5.1.3.RELEASE-brightgreen.svg)     ![author](https://img.shields.io/badge/author-quhaichuan-orange.svg)     ![jdk](https://img.shields.io/badge/jdk->=1.8-blue.svg)
 
 本项目仓库提供 spring常用应用场景，每个用例都会提供独立的示例项目代码
 
