@@ -1,25 +1,23 @@
 <nav>
 <a href="#"></a><br/>
-&nbsp;&nbsp;<a href="# Spring基础-自动装配">Spring基础自动装配</a><br/>
-&nbsp;&nbsp;<a href="# 示例解析">示例解析</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="# 注解-@Component">注解Component</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="# 注解-@ComponentScan">注解ComponentScan</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="# 注解-@Autowired">注解Autowired</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="# 测试结果">测试结果</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#**Spring基础-自动装配**">Spring基础自动装配</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#**示例解析**">示例解析</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#注解-@Component">注解Component</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#注解-@ComponentScan">注解ComponentScan</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#注解-@Autowired">注解Autowired</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#测试结果">测试结果</a><br/>
 </nav>
 
-![spring](https://img.shields.io/badge/spring-5.1.3.RELEASE-brightgreen.svg)     ![author](https://img.shields.io/badge/author-quhaichuan-orange.svg)     ![jdk](https://img.shields.io/badge/jdk->=1.8-blue.svg)
-
-## **Spring基础-自动装配**
+## Spring基础-自动装配
 
 Spring从两个角度来实现自动化装配：
 
 - **组件扫描 **  (component scanning):Spring会使用**@ComponentScan**自动发现应用上下文中所创建的bean；
 - **自动装配**   (autowiring):通过使用**@Autowired**注解，自动满足bean之间的依赖。
 
-<br/>
+---
 
-## **示例解析**
+## 示例解析
 
 我们通常的概念是，一个CD碟片(Disc)需要放到CD播放机(DiscDriver)里才可以播放碟片弄的内容，我们以这个模型来认识Spring的自动装配。
 
@@ -46,7 +44,7 @@ public class Disc {
 
 可以使用@Component("beanName")为bean指定名称。
 
-
+---
 
 ### 注解-@ComponentScan
 
@@ -62,6 +60,8 @@ public class DiscDriverConfig {
 ```
 
 这里使用@ComponentScan是要扫描basePackages目录下的所有有@Component注解的类。默认扫描与这个配置类相同的包以及对应的子包，通过basePackages指定扫描目录。
+
+---
 
 ### 注解-@Autowired
 
@@ -82,6 +82,8 @@ public class DiscDriver {
 ```
 
 在disc成员变量上添加@Autowired注解，在创建bean的时候会自动再Spring应用上下文中寻找匹配Disc需求的bean,并把它注入进来。除了成员变量，还可以用到setter方法上。
+
+---
 
 ### 测试结果
 
