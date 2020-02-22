@@ -1,10 +1,10 @@
 <nav>
 <a href="#"></a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#**Spring基础-自动装配**">Spring基础自动装配</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#**示例解析**">示例解析</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#注解-@Component">注解Component</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#注解-@ComponentScan">注解ComponentScan</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#注解-@Autowired">注解Autowired</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Spring基础-自动装配">Spring基础自动装配</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#示例解析">示例解析</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#注解Component">注解Component</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#注解ComponentScan">注解ComponentScan</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#注解Autowired">注解Autowired</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#测试结果">测试结果</a><br/>
 </nav>
 
@@ -21,7 +21,7 @@ Spring从两个角度来实现自动化装配：
 
 我们通常的概念是，一个CD碟片(Disc)需要放到CD播放机(DiscDriver)里才可以播放碟片弄的内容，我们以这个模型来认识Spring的自动装配。
 
-### 注解-@Component
+### 注解Component
 
 ```
 package com.qhc.cdplayer;
@@ -46,7 +46,7 @@ public class Disc {
 
 ---
 
-### 注解-@ComponentScan
+### 注解ComponentScan
 
 ```
 package com.qhc.cdplayer;
@@ -63,7 +63,7 @@ public class DiscDriverConfig {
 
 ---
 
-### 注解-@Autowired
+### 注解Autowired
 
 ```
 package com.qhc.cdplayer;
