@@ -1,13 +1,11 @@
 <nav>
 <a href="#"></a><br/>
-&emsp;&emsp;<a href="# **Spring基础-Java代码装配Bean**">Spring基础Java代码装配Bean</a><br/>
-&emsp;&emsp;&emsp;&emsp;<a href="# 示例解析">示例解析</a><br/>
-&emsp;&emsp;&emsp;&emsp;<a href="# 测试结果">测试结果</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Spring基础-Java代码装配Bean">Spring基础Java代码装配Bean</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#示例解析">示例解析</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#测试结果">测试结果</a><br/>
 </nav>
 
-![spring](https://img.shields.io/badge/spring-5.1.3.RELEASE-brightgreen.svg)     ![author](https://img.shields.io/badge/author-quhaichuan-orange.svg)     ![jdk](https://img.shields.io/badge/jdk->=1.8-blue.svg)
-
-## **Spring基础-Java代码装配Bean**
+## Spring基础-Java代码装配Bean
 
 自动装配固然方便，但如果需要将第三方的组件装配到应用中，就无法在它的类上添加@Component注解了。这时候就需要显示装配。显示装配可以用Java代码，也可以使用XML，这里讲解使用Java代码。
 
@@ -19,7 +17,7 @@ You can use @Bean-annotated methods with any Spring @Component. However, they ar
 
 重点来了，`@Bean`和`@Configuration`，这两个注解是使用Java代码装配的两个重要注解。下面用例子说明。
 
-<br/>
+---
 
 ### 示例解析
 
