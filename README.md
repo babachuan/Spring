@@ -12,9 +12,9 @@ maven:  3.5.4
 
 ## 1. spring 基础使用
 
-| Samples                                             | Description | Toplink |
-| --------------------------------------------------- | ----------- | ------- |
-| [spring-autocomponent](spring/spring-autocomponent) | 自动化装配  | None    |
-|                                                     |             |         |
-|                                                     |             |         |
+| Samples                                             | Description  | Toplink                                                      |
+| --------------------------------------------------- | ------------ | ------------------------------------------------------------ |
+| [spring-autocomponent](spring/spring-autocomponent) | 自动化装配   | [beans-autowired-annotation](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-autowired-annotation) |
+| [spring-javacomponent](spring\spring-javacomponent) | Java代码装配 | [beans-java-configuration-annotation](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-java-configuration-annotation) |
+| [spring-XMLcomponent](spring\spring-XMLcomponent)   | XML装配      | [beans-xml-configuration](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-factory-class) |
 
