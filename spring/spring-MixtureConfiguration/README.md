@@ -25,7 +25,7 @@
 - `Java2javaDisc.java`
 - `Java2javaDiscConfiguration.java`
 - `Java2javaDiscDriver.java`
-- `Java2javaDiscDriverConfiguration.java`
+- `Java2javaDiscDriverConfiguration.java` :star:
 
 **Java2javaDisc类**
 
@@ -116,7 +116,7 @@ public class Java2javaDiscDriverConfiguration {
 - `Java2xmlDisc.java`
 - `Java2xmlDiscConfiguration.java`
 - `Java2xmlDiscDriver.java`
-- `java2xml-spring-context.txt.xml`
+- `java2xml-spring-context.txt.xml`:star:
 
 ---
 
@@ -212,7 +212,7 @@ public class Java2xmlDiscDriver {
 
 - `XML2javaDisc.java`
 - `XML2javaDiscDriver.java`
-- `XML2javaDiscDriverConfiguration.java`
+- `XML2javaDiscDriverConfiguration.java`:star:
 - `xml2java-spring-context.txt.xml`
 
 ---
@@ -304,7 +304,7 @@ public class XML2javaDiscDriverConfiguration {
 - `XML2XMLDisc.java`
 - `XML2XMLDiscDriver.java`
 - `xml2xmlDisc-spring-context.xml`
-- `xml2xmlDiscDriver-spring-context.xml`
+- `xml2xmlDiscDriver-spring-context.xml`:star:
 
 ---
 
