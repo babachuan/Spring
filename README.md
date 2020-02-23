@@ -8,13 +8,19 @@ spring:  5.1.3.RELEASE
 
 maven:  3.5.4
 
-<br/>
+---
 
 ## 1. spring 基础使用
 
-| Samples                                             | Description  | Toplink                                                      |
-| --------------------------------------------------- | ------------ | ------------------------------------------------------------ |
-| [spring-autocomponent](spring/spring-autocomponent) | 自动化装配   | [beans-autowired-annotation](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-autowired-annotation) |
-| [spring-javacomponent](spring/spring-javacomponent) | Java代码装配 | [beans-java-configuration-annotation](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-java-configuration-annotation) |
-| [spring-XMLcomponent](spring/spring-XMLcomponent)   | XML装配      | [beans-xml-configuration](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-factory-class) |
+| Samples                                                      | Description                | Toplink                                                      |
+| ------------------------------------------------------------ | -------------------------- | ------------------------------------------------------------ |
+| [spring-autocomponent](spring/spring-autocomponent)          | 自动化装配                 | [beans-autowired-annotation](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-autowired-annotation) |
+| [spring-javacomponent](spring/spring-javacomponent)          | Java代码装配               | [beans-java-configuration-annotation](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-java-configuration-annotation) |
+| [spring-XMLcomponent](spring/spring-XMLcomponent)            | XML装配                    | [beans-xml-configuration](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-factory-class) |
+| [spring-MixtureConfiguration](spring/spring-MixtureConfiguration) | XML&JAVA导入<br>和混合装配 | [beans-java-combining](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-java-combining) |
+|                                                              |                            |                                                              |
+|                                                              |                            |                                                              |
+|                                                              |                            |                                                              |
+|                                                              |                            |                                                              |
+|                                                              |                            |                                                              |
 
