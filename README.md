@@ -18,7 +18,7 @@ maven:  3.5.4
 | [spring-javacomponent](spring/spring-javacomponent)          | Java代码装配               | [beans-java-configuration-annotation](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-java-configuration-annotation) |
 | [spring-XMLcomponent](spring/spring-XMLcomponent)            | XML装配                    | [beans-xml-configuration](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-factory-class) |
 | [spring-MixtureConfiguration](spring/spring-MixtureConfiguration) | XML&JAVA导入<br>和混合装配 | [beans-java-combining](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-java-combining) |
-|                                                              |                            |                                                              |
+| [spring-conditionbeans](spring/spring-conditionbeans)        | Profile条件注册bean        | [beans-definition-profiles-java](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-definition-profiles-java) |
 |                                                              |                            |                                                              |
 |                                                              |                            |                                                              |
 |                                                              |                            |                                                              |
