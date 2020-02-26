@@ -17,6 +17,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#配置文件方式">配置文件方式</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#单元测试中引入">单元测试中引入</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#DefaultProfile">DefaultProfile</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Conditional方式条件化注册bean">Conditional方式条件化注册bean</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#profile注解实现原理">profile注解实现原理</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#conditional条件化注册bean">conditional条件化注册bean</a><br/>
 </nav>
 
 # Spring基础-条件化注册bean
@@ -203,7 +206,66 @@ public @interface Production {
 }
 ```
 
-这样就可以直接使用`@Production`注解进行定义了，效果跟上面是一样的
+这样就可以直接使用`@Production`注解进行定义了，效果跟上面是一样的，对应代码参见`annotated`目录下的使用：
+
+**Production注解**：
+
+```
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Profile("production")
+public @interface Production {
+}
+```
+
+**Production注解的使用**
+
+```
+@Component
+@Production
+public class AnnoProdBean implements AnnoShowInterface {
+    private String msg="This is production Envirenment";
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public AnnoProdBean() {
+        System.out.println("=====anno-prod====");
+    }
+
+    @Override
+    public void show() {
+        System.out.println(this.msg);
+    }
+}
+```
+
+从上面看出只是使用了`@Production`自定义注解
+
+**对应的测试类**：
+
+```
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = AnnoBeanConfiguration.class)
+@ActiveProfiles("development")
+public class AnnoProfileTest {
+    @Autowired
+    private AnnoShowInterface annoshowInterface;
+    @Test
+    public void Test1(){
+        annoshowInterface.show();
+    }
+}
+
+测试结果：
+=====anno-dev====
+This is development Envirenment
+```
 
 ### 一次设置多个profile
 
@@ -467,3 +529,162 @@ public class DefaultDataConfig {
 ```
 
 使用`@Profile("default")`注解声明即可。
+
+## Conditional方式条件化注册bean
+
+`@Conditional`注解使用原理
+
+```
+@Conditional注解可以使用到带有@Bean注解的方法上，形式如：@Conditional(PersonExistCondition.class)，其中PersonExistCondition.class是实现了Condition接口的条件判定方法类。
+```
+
+总结如下：
+
+- 首先：要在带有`@Bean`注解的方法上使用`@Conditional`
+- 其次：`@Conditional()`里面的判定条件的类需要实现Condition接口并复写`matches()`方法
+
+### profile注解实现原理
+
+先说一下上面的`@Profile`注解的实现原理，源码如下：
+
+```
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Conditional({ProfileCondition.class})
+public @interface Profile {
+    String[] value();
+}
+```
+
+可以看到也是使用了`@Conditional({ProfileCondition.class})`注解，其中`ProfileCondition.class`源码如下：
+
+```
+
+class ProfileCondition implements Condition {
+    ProfileCondition() {
+    }
+
+    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+        MultiValueMap<String, Object> attrs = metadata.getAllAnnotationAttributes(Profile.class.getName());
+        if (attrs != null) {
+            Iterator var4 = ((List)attrs.get("value")).iterator();
+
+            Object value;
+            do {
+                if (!var4.hasNext()) {
+                    return false;
+                }
+
+                value = var4.next();
+            } while(!context.getEnvironment().acceptsProfiles(Profiles.of((String[])((String[])value))));
+
+            return true;
+        } else {
+            return true;
+        }
+    }
+}
+```
+
+从上面可以看出ProfileCondition类实现了`Condition`接口并重写了`matches`.
+
+### conditional条件化注册bean
+
+这里用一个小例子说明,有一个Person类，只有当系统中设置了`person`(不管属性值是什么)属性的时候，这个bean才会创建。参见`conditional`目录内容
+
+**Person类**
+
+```
+public class Person {
+    private String name="jack";
+    public Person() {
+        System.out.println("Person is created by spring");
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+}
+```
+
+这是一个普通的bean.
+
+---
+
+**ConditionConfiguration**配置类
+
+```
+@Configuration
+@PropertySource("classpath:condition.properties")
+public class ConditionConfiguration {
+
+    @Bean
+    @Conditional(PersonExistCondition.class)
+    public Person person(){
+        return new Person();
+    }
+}
+```
+
+可以看到这里加载了`@PropertySource("classpath:condition.properties")`配置文件，并且在`@Bean`注解上使用了` @Conditional(PersonExistCondition.class)`注解
+
+---
+
+**PersonExistCondition类**
+
+```
+public class PersonExistCondition  implements Condition {
+    @Override
+    public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
+        Environment env = conditionContext.getEnvironment();
+        return env.containsProperty("person");//判断是否包含person属性，不管值是多少
+    }
+}
+```
+
+这个类里面实现了Condition接口，并在重新方法里判断`env.containsProperty("person")`环境属性中是否有`person`属性。
+
+---
+
+**condition.properties配置文件**
+
+```
+person =
+```
+
+---
+
+**测试类**
+
+```
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = ConditionConfiguration.class)
+public class ConditionalTest {
+    @Autowired
+    private  Person person;
+
+    @Test
+    public void test(){
+        System.out.println(person);
+    }
+}
+
+测试结果：
+Person is created by spring
+Person{name='jack'}
+```
+
+*注意*：如果把condition.properties文件中的person修改为其他任意值，则会报错找不到Person的对象。
+
+
+
