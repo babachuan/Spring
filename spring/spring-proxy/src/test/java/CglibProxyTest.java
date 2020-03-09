@@ -1,9 +1,6 @@
 import com.qhc.proxy.cglibdynamic.CglibBoxes;
 import com.qhc.proxy.cglibdynamic.CglibHandler;
 import com.qhc.proxy.cglibdynamic.CglibMainConfiguration;
-import com.qhc.proxy.jdkdynamic.Boxes;
-import com.qhc.proxy.jdkdynamic.BuyFromWorld;
-import com.qhc.proxy.jdkdynamic.JDKHandler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

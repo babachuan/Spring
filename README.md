@@ -22,6 +22,6 @@ maven:  3.5.4
 | [spring-ambiguousbean](spring/spring-ambiguousbean)          | 自动装配的限定<br>@Qualifier&@Primary          | [beans-autowired-annotation-qualifiers](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-autowired-annotation-qualifiers) |
 | [spring-AOP](spring/spring-AOP)                              | Spring AOP                                     | [aop-introduction-defn](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#aop-introduction-defn) |
 | [spring-circular-reference](spring/spring-circular-reference) | 循环依赖                                       | [beans-dependency-resolution](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-dependency-resolution) |
-|                                                              |                                                |                                                              |
+| [spring-proxy](spring/spring-proxy)                          | 静态代理<br>动态代理                           | [aop-introduction-proxies](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#aop-introduction-proxies) |
 
 
