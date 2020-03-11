@@ -1,123 +1,163 @@
-<nav>
-<a href="#"></a><br/>
-<a href="#1）第一个SpringBoot项目">1）第一个SpringBoot项目</a><br/>
-<a href="#2）配置springboot访问web的端口和项目名">2）配置springboot访问web的端口和项目名</a><br/>
-<a href="#3）使用Thymeleaf模板引擎">3）使用Thymeleaf模板引擎</a><br/>
-</nav>
+# 1）三层结构的项目
 
-# 1）第一个SpringBoot项目
+新建一个springboot项目，并通过简单的三层`controller` `service` `dao` 实现一个模型式的应用。这个应用写的很简单，就是帮助理解springMVC。
 
-通过IDEA工具的Spring Initializr自动生成springboot项目空包。
-
-对应的结构目录如下：
+**city类**
 
 ```
-.
-+--- .gitignore
-+--- .idea
-|   +--- compiler.xml
-|   +--- encodings.xml
-|   +--- inspectionProfiles
-|   |   +--- Project_Default.xml
-|   +--- libraries
-|   +--- misc.xml
-|   +--- modules.xml
-|   +--- springboot1.iml
-|   +--- vcs.xml
-|   +--- workspace.xml
-+--- .mvn
-|   +--- wrapper
-|   |   +--- maven-wrapper.jar
-|   |   +--- maven-wrapper.properties
-|   |   +--- MavenWrapperDownloader.java
-+--- mvnw
-+--- mvnw.cmd
-+--- pom.xml
-+--- README.md
-+--- src
-|   +--- main
-|   |   +--- java
-|   |   |   +--- com
-|   |   |   |   +--- qhc
-|   |   |   |   |   +--- springboot1
-|   |   |   |   |   |   +--- controller
-|   |   |   |   |   |   |   +--- MyAppController.java
-|   |   |   |   |   |   |   +--- SimpleThymleafController.java
-|   |   |   |   |   |   |   +--- UserController.java
-|   |   |   |   |   |   +--- Springboot1Application.java
-|   |   +--- resources
-|   |   |   +--- application.properties
-|   |   |   +--- rebel.xml
-|   |   |   +--- templates
-|   |   |   |   +--- hello.html
-|   +--- test
-|   |   +--- java
-|   |   |   +--- com
-|   |   |   |   +--- qhc
-|   |   |   |   |   +--- springboot1
-|   |   |   |   |   |   +--- Springboot1ApplicationTests.java
-+--- target
-|   +--- classes
-|   |   +--- application.properties
-|   |   +--- com
-|   |   |   +--- qhc
-|   |   |   |   +--- springboot1
-|   |   |   |   |   +--- controller
-|   |   |   |   |   |   +--- MyAppController.class
-|   |   |   |   |   |   +--- SimpleThymleafController.class
-|   |   |   |   |   |   +--- UserController.class
-|   |   |   |   |   +--- Springboot1Application.class
-|   |   +--- rebel.xml
-|   |   +--- templates
-|   |   |   +--- hello.html
-|   +--- generated-sources
-|   |   +--- annotations
-|   +--- generated-test-sources
-|   |   +--- test-annotations
-|   +--- test-classes
-|   |   +--- com
-|   |   |   +--- qhc
-|   |   |   |   +--- springboot1
-|   |   |   |   |   +--- Springboot1ApplicationTests.class
+package com.qhc.springboot2.beans;
 
-```
+public class City {
+    private Integer id;
+    private String name;
 
-# 2）配置springboot访问web的端口和项目名
+    public Integer getId() {
+        return id;
+    }
 
-```
-server.port=8088   //配置端口
-server.servlet.context-path=/demo  //配置项目名
-```
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-# 3）使用Thymeleaf模板引擎
+    public String getName() {
+        return name;
+    }
 
-**pom引入依赖**
-
-```
-       <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-```
-
-**编写Controller**
-
-```
-@Controller
-public class SimpleThymleafController {
-    @RequestMapping("/leaf")
-    public String index(ModelMap map){
-        //加入一个属性，用来在模板中读取
-        map.put("message","hello world theymleaf!");  //在html文件中通过message的key获取对应的“hello world，并插入到占位符中
-        //return模板文件的名称，默认以html结尾，对应src/main/resources/templates/hello.html
-        return "hello";
+    public void setName(String name) {
+        this.name = name;
     }
 }
 ```
 
-返回的字符串默认是访问src/main/resources/templates目录下的`.html`文件，返回字符串的名字就是html文件的名字。
+这里声明一个简单的bean.
 
-**src/main/resources/templates/hello.html文件**
+---
+
+**MyController**
+
+```
+package com.qhc.springboot2.controller;
+
+import com.qhc.springboot2.beans.City;
+import com.qhc.springboot2.service.CityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+@Controller
+public class MyController {
+    @Autowired
+    CityService cityService;
+
+    @RequestMapping("/list") //通过url:http://localhost:8088/demo/list  访问已经添加的信息
+    public String list(ModelMap map) {
+        List<City> list = cityService.findAll();
+
+        map.addAttribute("list", list);
+        return "list";
+    }
+
+    @RequestMapping("/add")   //添加页面，将前台传递过来的数据添加到dao,具体url:http://localhost:8088/demo/add
+    public String add(@ModelAttribute City city, Model map) {
+        String sucess = cityService.add(city);
+        map.addAttribute("success", sucess);
+        return "add";
+    }
+    @RequestMapping("/addPage")  //通过http://localhost:8088/demo/addPage访问添加页面
+    public String addPage() {
+
+        return "add";
+    }
+}
+```
+
+这个里面有三个方法
+
+- addPage：跳转到添加页码
+- add：真正添加数据的页面，添加完后仍让留在当前页面
+- list：查看所有的数据
+
+---
+
+**CityDao**
+
+```
+package com.qhc.springboot2.dao;
+
+import com.qhc.springboot2.beans.City;
+import org.springframework.stereotype.Repository;
+
+import java.util.*;
+
+@Repository
+public class CityDao {
+
+    static Map<Integer, City> dataMap =  Collections.synchronizedMap(new HashMap<Integer, City>());
+    public List<City> findAll() {
+        return new ArrayList<>(dataMap.values());
+    }
+
+    public void save(City city) throws Exception {
+        City data = dataMap.get(city.getId());
+        if(data != null){
+            throw new Exception("数据已经存在");
+        }else{
+            dataMap.put(city.getId(),city);
+            System.out.println("====数据添加成功");
+        }
+    }
+}
+```
+
+这里使用一个` Collections.synchronizedMap`模拟数据库操作，这里是线程安全。
+
+---
+
+**CityService类**
+
+```
+package com.qhc.springboot2.service;
+
+import com.qhc.springboot2.beans.City;
+import com.qhc.springboot2.dao.CityDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+@Service
+public class CityService {
+
+    @Autowired
+    CityDao cityDao;
+
+    public List<City> findAll() {
+        return cityDao.findAll();
+    }
+
+    public String add(City city) {
+        try {
+            cityDao.save(city);
+            return "保存成功";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "保存失败";
+        }
+    }
+}
+```
+
+在service类里通过dao进行操作，体现了分层的设计思想。
+
+---
+
+**template包了的模板文件**
+
+**add.html文件**
 
 ```
 <!DOCTYPE html>
@@ -127,14 +167,56 @@ public class SimpleThymleafController {
     <title>My SpringBoot</title>
 </head>
 <body>
-<h1 th:text="${message}"></h1>
+<h1 th:text="${success}"></h1>
+
+<form action="add" method="post">
+    id:<input name="id" type="text"><br/>
+    name:<input name="name" type="text"><br/>
+    <input type="submit" value="submit">
+
+</form>
 </body>
 </html>
 ```
 
-启动springboot项目，使用url:`http://localhost:8088/demo/leaf`访问得到的结果：
+**list.html**
 
 ```
-hello world theymleaf!
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>My SpringBoot</title>
+</head>
+<body>
+City List
+<hr>
+
+<table border="1">
+
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+
+    <tr th:each="city : ${list}">
+        <!-- EL JSTL-->
+        <td th:text = "${city.id}"></td>
+        <td th:text = "${city.name}"></td>
+    </tr>
+</table>
+</body>
+
+</html>
 ```
+
+在这里使用`<tr th:each="city : ${list}">`循环填充数据，并写到一个列表里面。
+
+启动tomcat后使用`http://localhost:8088/demo/add`进行数据添加
+
+使用`http://localhost:8088/demo/list`进行所有数据的访问
+
+测试成功！！！
+
+
 
