@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><!--在url上加上@符号，自动帮我们加上contentpath-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/min.css}"/>
+    <title>MyThymleaf</title>
+</head>
+<body>
+<h1 th:utext="${name}">你好</h1>
+<p th:text="${age}"></p>
+
+<h2 >
+    <p>Name: <span th:text="${user.name}">Jack</span></p>
+    <p>Age: <span th:text="${user.age}">20</span></p>
+    <p>friend: <span th:text="${user.pet.name}"></span></p>
+</h2>
+</body>
+
+</html>
