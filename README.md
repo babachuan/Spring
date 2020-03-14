@@ -41,3 +41,17 @@ maven:  3.5.4
 |                                                              |                                     |                                                              |
 |                                                              |                                     |                                                              |
 
+
+
+---
+
+# 3.Mybatis基础使用
+
+| Samples                                                      | Description                     | Toplink                                                      |
+| ------------------------------------------------------------ | ------------------------------- | ------------------------------------------------------------ |
+| [Mybatis-XML](spring/Mybatis-XML)<br>[Mybatis-annotation](spring/Mybatis-annotation) | Mybatis基本配置只用             | [getting-started](https://mybatis.org/mybatis-3/getting-started.html) |
+| [Mybatis-XML-CRUD](spring/Mybatis-XML-CRUD)<br>[Mybatis-annotation-CRUD](spring/Mybatis-annotation-CRUD) | 使用Mybatis进行<br>增删改查操作 | [sqlmap-xml](https://mybatis.org/mybatis-3/sqlmap-xml.html)<br>[java-api](https://mybatis.org/mybatis-3/java-api.html) |
+| [Mybatis-Multitable](spring/Mybatis-Multitable)              | 关联查询                        | [resultMaps](https://mybatis.org/mybatis-3/sqlmap-xml.html#Result_Maps) |
+|                                                              |                                 |                                                              |
+|                                                              |                                 |                                                              |
+

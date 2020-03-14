@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qhc.mybatis.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.qhc.mybatis.User">
+        <result column="userName" property="userName" />
+        <result column="passWord" property="passWord" />
+    </resultMap>
+<!--    <select id="selectUser" parameterType="int" resultMap="BaseResultMap">-->
+    <select id="selectUser" resultType="com.qhc.mybatis.User">  <!--这里既可以使用类的全限定类名，也可以使用上面的resultMap-->
+    select * from User where id = #{id}
+  </select>
+    
+    <insert id="addUser"
+</mapper>

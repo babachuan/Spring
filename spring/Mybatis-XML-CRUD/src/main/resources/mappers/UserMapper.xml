@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qhc.mybatis2.UserMapper">
+
+    <!--插入数据-->
+    <insert id="addUser" parameterType="com.qhc.mybatis2.beans.User">
+        insert into user (userName,passWord) values (#{userName},#{passWord})
+    </insert>
+
+<!--    删除数据-->
+    <delete id="deleteUser" parameterType="com.qhc.mybatis2.beans.User">
+        delete from user where userName = #{userName}
+    </delete>
+
+<!--    修改数据-->
+    <update id="updateUser" parameterType="com.qhc.mybatis2.beans.User">
+        update user set passWord= #{passWord} where userName= #{userName}
+    </update>
+
+<!--    查询一个-->
+    <select id="selectOne" resultType="com.qhc.mybatis2.beans.User">
+        select * from user where id= #{id}
+    </select>
+
+<!--    查询所有-->
+    <select id="getAll" resultType="com.qhc.mybatis2.beans.User">
+        select * from user
+    </select>
+
+    <!--    模糊查询-->
+    <select id="getByLikeName" resultType="com.qhc.mybatis2.beans.User">
+        select * from user where userName like #{name}
+    </select>
+</mapper>

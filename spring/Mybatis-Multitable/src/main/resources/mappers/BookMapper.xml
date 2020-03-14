@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qhc.multi.bookMapper">
+
+    <resultMap type="_Book" id="BookResultMap">
+        <id property="bookId" column="id"></id>
+        <result property="bookName" column="name"></result>
+        <result property="publisherId" column="publisher_id"></result>
+        <result property="price" column="price"></result>
+        <association property="author" column="author_id" javaType="_Author">
+            <id property="authorId" column="author_id"></id>
+            <result property="authorName" column="name"></result>
+        </association>
+    </resultMap>
+
+    <select id="OOselect" parameterType="String" resultMap="BookResultMap">
+        select * from bookinfo b,author a where b.name= #{bookname} and a.author_id=b.author_id
+    </select>
+
+
+</mapper>
