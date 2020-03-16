@@ -32,14 +32,14 @@ maven:  3.5.4
 
 # 2.SpringBoot基础使用
 
-| Samples                                                      | Description                         | Toplink                                                      |
-| ------------------------------------------------------------ | ----------------------------------- | ------------------------------------------------------------ |
-| [springboot1](spring/springboot1)                            | 第一个SpringBoot项目                | [getting-started-first-application](https://docs.spring.io/spring-boot/docs/2.2.5.RELEASE/reference/html/getting-started.html#getting-started-first-application) |
-| [springboot2](spring/springboot2)                            | springBoot-MVC                      | [getting-started-first-application](https://docs.spring.io/spring-boot/docs/2.2.5.RELEASE/reference/html/getting-started.html#getting-started-first-application) |
-| [springboot-JPA](spring/springboot-JPA)<br>[springboot-JPA2](spring/springboot-JPA2) | SpringBoot与<br>Spring Data JPA整合 | [accessing-data-mysql](https://spring.io/guides/gs/accessing-data-mysql/)<br>[jpa.repositories](https://docs.spring.io/spring-data/jpa/docs/2.2.5.RELEASE/reference/html/#jpa.repositories) |
-| [springboot-JSP](spring/springboot-JSP)                      | SpringBboot与JSP整合                | [boot-features-jsp-limitations](https://docs.spring.io/spring-boot/docs/2.1.1.RELEASE/reference/htmlsingle/#boot-features-jsp-limitations) |
-|                                                              |                                     |                                                              |
-|                                                              |                                     |                                                              |
+| Samples                                                      | Description                                   | Toplink                                                      |
+| ------------------------------------------------------------ | --------------------------------------------- | ------------------------------------------------------------ |
+| [springboot1](spring/springboot1)                            | 第一个SpringBoot项目                          | [getting-started-first-application](https://docs.spring.io/spring-boot/docs/2.2.5.RELEASE/reference/html/getting-started.html#getting-started-first-application) |
+| [springboot2](spring/springboot2)                            | springBoot-MVC                                | [getting-started-first-application](https://docs.spring.io/spring-boot/docs/2.2.5.RELEASE/reference/html/getting-started.html#getting-started-first-application) |
+| [springboot-JPA](spring/springboot-JPA)<br>[springboot-JPA2](spring/springboot-JPA2) | SpringBoot与<br>Spring Data JPA整合           | [accessing-data-mysql](https://spring.io/guides/gs/accessing-data-mysql/)<br>[jpa.repositories](https://docs.spring.io/spring-data/jpa/docs/2.2.5.RELEASE/reference/html/#jpa.repositories) |
+| [springboot-JSP](spring/springboot-JSP)                      | SpringBboot与JSP整合                          | [boot-features-jsp-limitations](https://docs.spring.io/spring-boot/docs/2.1.1.RELEASE/reference/htmlsingle/#boot-features-jsp-limitations) |
+| [springboot-Mybatis](spring/springboot-Mybatis)              | SpringBoot与Mybatis整合<br>日志、分环境、分页 | [mybatis-spring](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)<br>[getting-stared](http://mybatis.org/spring/getting-started.html)<br>[sqlmap-xml](https://mybatis.org/mybatis-3/sqlmap-xml.html#Result_Maps) |
+|                                                              |                                               |                                                              |
 
 
 

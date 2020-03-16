@@ -1,222 +1,169 @@
-# 1）三层结构的项目
+# 1）springboot整合mybatis
 
-新建一个springboot项目，并通过简单的三层`controller` `service` `dao` 实现一个模型式的应用。这个应用写的很简单，就是帮助理解springMVC。
-
-**city类**
+引入pom依赖
 
 ```
-package com.qhc.springboot2.beans;
-
-public class City {
-    private Integer id;
-    private String name;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-}
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 ```
 
-这里声明一个简单的bean.
-
----
-
-**MyController**
+创建映射文件
 
 ```
-package com.qhc.springboot2.controller;
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-import com.qhc.springboot2.beans.City;
-import com.qhc.springboot2.service.CityService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+<mapper namespace="com.qhc.springboot2.mappers.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.qhc.springboot2.beans.User">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="userName" jdbcType="VARCHAR" property="userName"/>
+        <result column="passWord" jdbcType="VARCHAR" property="passWord"/>
+        <result column="realName" jdbcType="VARCHAR" property="realName"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="BaseResultMap">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select * from user
+    </select>
+
+    <!--    插入数据-->
+    <insert id="addUser" parameterType="com.qhc.springboot2.beans.User">
+        insert into user (userName,passWord) values (#{userName},#{passWord})
+    </insert>
+
+</mapper>
+```
+
+这个文件是在maven项目的resources目录下的mapping目录下创建的。在这个文件里面定义了namespace
+
+`com.qhc.springboot2.mappers.UserMapper`这个就是对应接口文件的位置。下面看下接口文件
+
+**UserMapper**
+
+```
+package com.qhc.springboot2.mappers;
+
+import com.qhc.springboot2.beans.User;
 
 import java.util.List;
 
-@Controller
-public class MyController {
-    @Autowired
-    CityService cityService;
+public interface UserMapper {
+    User queryById(int id);
 
-    @RequestMapping("/list") //通过url:http://localhost:8088/demo/list  访问已经添加的信息
-    public String list(ModelMap map) {
-        List<City> list = cityService.findAll();
+    List<User> getAll();
 
-        map.addAttribute("list", list);
-        return "list";
-    }
-
-    @RequestMapping("/add")   //添加页面，将前台传递过来的数据添加到dao,具体url:http://localhost:8088/demo/add
-    public String add(@ModelAttribute City city, Model map) {
-        String sucess = cityService.add(city);
-        map.addAttribute("success", sucess);
-        return "add";
-    }
-    @RequestMapping("/addPage")  //通过http://localhost:8088/demo/addPage访问添加页面
-    public String addPage() {
-
-        return "add";
-    }
+    int addUser(User user);
 }
 ```
 
-这个里面有三个方法
+这里只有简简单单几个方法名称和返回类型。没有在接口上加`@Mapper`注解时因为在SpringBoot的启动两类里添加了`@MapperScan("com.qhc.springboot2.mappers")`，这种批量扫描的会方便一些，也可以单独使用注解。
 
-- addPage：跳转到添加页码
-- add：真正添加数据的页面，添加完后仍让留在当前页面
-- list：查看所有的数据
+# 2)添加mybatis日志
 
----
-
-**CityDao**
+在springboot中添加打印日志很方便，只需要在对应的配置文件配置即可。mybatis打印日志针对接口进行设置，也就是针对`com/qhc/springboot2/mappers`目录下的所有接口类打印对应的操作日志（即SQL语句），配置文件`application-prod.yml`里配置如下：
 
 ```
-package com.qhc.springboot2.dao;
+logging:
+  level:
+    com:
+      qhc:
+        springboot2:
+                  mappers: debug
+```
 
-import com.qhc.springboot2.beans.City;
-import org.springframework.stereotype.Repository;
+设置到`debug`即可，打印效果如下：
 
-import java.util.*;
+```
+ [nio-8089-exec-1] c.q.s.mappers.UserMapper.getAll          : ==>  Preparing: select * from user 
+ [nio-8089-exec-1] c.q.s.mappers.UserMapper.getAll          : ==> Parameters: 
+ [nio-8089-exec-1] c.q.s.mappers.UserMapper.getAll          : <==      Total: 5
+```
 
-@Repository
-public class CityDao {
+# 3）设置生成环境和开发环境
 
-    static Map<Integer, City> dataMap =  Collections.synchronizedMap(new HashMap<Integer, City>());
-    public List<City> findAll() {
-        return new ArrayList<>(dataMap.values());
+在日常开发中，我们经常会遇到测试环境和开发环境切换的问题。在spring中可以使用`@Profile`注解，那么在springboot中已经很方便的为我们做了实现。
+
+首先需要创建对应开发和生产环境的配置，如下；
+
+application-dev.yml
+
+application-prod.yml
+
+然后再在`application.yml`中进行配置，如下：
+
+```
+spring:
+  profiles:
+    active: prod
+```
+
+这里配置的是`prod`，也就是开启`application-prod.yml`的配置。
+
+# 4）全局类型设置别名
+
+在上面UserMapper.xml配置文件中使用`parameterType="com.qhc.springboot2.beans.User"`这样一段长长的名字，不方便开发，那如果把parameterType修改为`User`呢，实践会告诉你报错：
+
+```
+ Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'User'.  Cause: java.lang.ClassNotFoundException: Cannot find class: User
+```
+
+**解决办法**
+
+在application-prod.yml(因为我测试的就是这个)文件中加入如下配置；
+
+```
+mybatis:
+  type-aliases-package: com.qhc.springboot2
+  mapper-locations: classpath:mapping/*.xml
+```
+
+重点看`type-aliases-package: com.qhc.springboot2`，这个就是为包下的类起别名，加上配置之后，只要User为这个包下的实体类，就都可以直接用类名来**代替全限定名**,是不是很爽。下面是使用效果：
+
+```
+    <insert id="addUser" parameterType="User">
+        insert into user (userName,passWord) values (#{userName},#{passWord})
+    </insert>
+```
+
+# 5）使用Pagehelper分页打印
+
+引入POM
+
+```
+ <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-autoconfigure</artifactId>
+            <version>1.2.13</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.10</version>
+        </dependency>
+```
+
+我再环境测试时如果不引入`pagehelper-spring-boot-autoconfigure`无法实现分页功能。另外在引入依赖后尽量在maven里clean一下。
+
+**在代码中使用分页**
+
+```
+    public List<User> getAll(Integer pageNum,Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        return userDao.getAll();
     }
-
-    public void save(City city) throws Exception {
-        City data = dataMap.get(city.getId());
-        if(data != null){
-            throw new Exception("数据已经存在");
-        }else{
-            dataMap.put(city.getId(),city);
-            System.out.println("====数据添加成功");
-        }
-    }
-}
 ```
 
-这里使用一个` Collections.synchronizedMap`模拟数据库操作，这里是线程安全。
-
----
-
-**CityService类**
-
-```
-package com.qhc.springboot2.service;
-
-import com.qhc.springboot2.beans.City;
-import com.qhc.springboot2.dao.CityDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-@Service
-public class CityService {
-
-    @Autowired
-    CityDao cityDao;
-
-    public List<City> findAll() {
-        return cityDao.findAll();
-    }
-
-    public String add(City city) {
-        try {
-            cityDao.save(city);
-            return "保存成功";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "保存失败";
-        }
-    }
-}
-```
-
-在service类里通过dao进行操作，体现了分层的设计思想。
-
----
-
-**template包了的模板文件**
-
-**add.html文件**
-
-```
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>My SpringBoot</title>
-</head>
-<body>
-<h1 th:text="${success}"></h1>
-
-<form action="add" method="post">
-    id:<input name="id" type="text"><br/>
-    name:<input name="name" type="text"><br/>
-    <input type="submit" value="submit">
-
-</form>
-</body>
-</html>
-```
-
-**list.html**
-
-```
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>My SpringBoot</title>
-</head>
-<body>
-City List
-<hr>
-
-<table border="1">
-
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-    </tr>
-
-    <tr th:each="city : ${list}">
-        <!-- EL JSTL-->
-        <td th:text = "${city.id}"></td>
-        <td th:text = "${city.name}"></td>
-    </tr>
-</table>
-</body>
-
-</html>
-```
-
-在这里使用`<tr th:each="city : ${list}">`循环填充数据，并写到一个列表里面。
-
-启动tomcat后使用`http://localhost:8088/demo/add`进行数据添加
-
-使用`http://localhost:8088/demo/list`进行所有数据的访问
-
-测试成功！！！
-
-
-
+使用分页很简单，直接在service代码里引用` PageHelper.startPage(pageNum,pageSize)`就可以。当然还有很多其他的功能，这里抛砖引玉。

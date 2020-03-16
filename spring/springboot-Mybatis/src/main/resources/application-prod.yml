@@ -11,7 +11,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
 
 mybatis:
-  type-aliases-package: com.qhc.springboot2.dao
+  type-aliases-package: com.qhc.springboot2
   mapper-locations: classpath:mapping/*.xml
 
 # 根据包打印日志，这里只是为了打印SQL
@@ -20,4 +20,4 @@ logging:
     com:
       qhc:
         springboot2:
-                  dao: debug
+                  mappers: debug

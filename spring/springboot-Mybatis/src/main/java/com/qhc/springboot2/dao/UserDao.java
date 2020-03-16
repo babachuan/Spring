@@ -1,16 +1,29 @@
 package com.qhc.springboot2.dao;
 
 import com.qhc.springboot2.beans.User;
-import org.apache.ibatis.annotations.Mapper;
+import com.qhc.springboot2.mappers.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface UserDao {
-    User queryById(int id);
+public class UserDao {
+    @Autowired
+    UserMapper userMapper;
 
-    List<User> getAll();
+    public User queryById(int id){
+        User user = userMapper.queryById(id);
+        return  user;
+    }
 
-    void addUser(User user);
+    public List<User> getAll(){
+        List<User> all = userMapper.getAll();
+        return all;
+    }
+
+    public int addUser(User user){
+        int i = userMapper.addUser(user);
+        return i;
+    }
 }
