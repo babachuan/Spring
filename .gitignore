@@ -1,3 +1,4 @@
 spring/*/.idea
 spring/*/*.iml
 spring/*/target
+spring/*/*/target

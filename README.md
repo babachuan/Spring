@@ -24,6 +24,16 @@ maven:  3.5.4
 | [spring-circular-reference](spring/spring-circular-reference) | 循环依赖                                       | [beans-dependency-resolution](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#beans-dependency-resolution) |
 | [spring-proxy](spring/spring-proxy)                          | 静态代理<br>动态代理                           | [aop-introduction-proxies](https://docs.spring.io/spring/docs/5.1.13.RELEASE/spring-framework-reference/core.html#aop-introduction-proxies) |
 
+---
+# Spring新版本
+- Spring版本：6.2.6
+- JDK版本：Oracle JDK 21
+
+
+  | Samples                                                      | Description                          | Toplink                                                      |
+  | ------------------------------------------------------------ |--------------------------------------| ------------------------------------------------------------ |
+  | [Spring6.2.6](spring/spring-ioc-xml/Spring6.2.6)          | Spring IOC控制反转，xml方式，并且通过junit进行调用测试 | |
+
 
 
 
