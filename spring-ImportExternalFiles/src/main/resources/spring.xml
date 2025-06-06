@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+    <!-- 要导入外部配置文件，需要将spring.xml配置文件的约束进行修改
+    第一步：添加命名空间
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    第二步：添加约束文件
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+
+    第三步：直接使用context进行外部文件引用
+    -->
+
+
+    <!-- 导入外部文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!-- 创建druid数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="username" value="${jdbc_username}"></property>
+        <property name="password" value="${jdbc_password}"></property>
+        <property name="url" value="${jdbc_url}"></property>
+        <property name="driverClassName" value="${jdbc_driverClassName}"></property>
+        <property name="initialSize" value="1"></property>
+    </bean>
+
+</beans>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- Date对象实例 -->
+    <bean id="date" class="java.util.Date"></bean>
+
+    <!-- 这里的生日需要引入外部的bean  -->
+    <bean id="mouse1" class="cn.org.geneplus.bean.Mouse">
+        <property name="name" value="jerry"></property>
+        <property name="birthday" ref="date"></property>
+    </bean>
+
+    <!-- 新建一个cat类，通过内部引用 -->
+    <bean id="cat" class="cn.org.geneplus.bean.Cat">
+        <property name="name" value="Tom"></property>
+        <property name="mouse" >
+            <bean class="cn.org.geneplus.bean.Mouse">
+                <property name="name" value="Tom's Mouse"></property>
+                <property name="birthday">
+                    <bean class="java.util.Date"></bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+</beans>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- 注意，使用工厂模式返回的是工厂生产的泛型类，而不是工厂类本身，所以这里需要使用factory-bean属性指定工厂类 -->
+    <bean id="book" class="cn.org.geneplus.factory.BookFactory"></bean>
+</beans>

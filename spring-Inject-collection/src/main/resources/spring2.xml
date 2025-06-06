@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+
+">
+
+    <!-- 通过公共组件注入集合 -->
+    <!--
+    第一步：创建命名util命名空间
+    xmlns:util="http://www.springframework.org/schema/util"
+
+    第二步：引入util命名空间,xsi:schemaLocation添加如下内容
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd
+
+    第三步：创建集合对象
+    <util:list id="bookList"></util:list>
+    -->
+
+    <!-- 这里创建公共集合对象 -->
+    <util:list id="outerbookList">
+        <bean id="b1" class="cn.org.geneplus.bean.Book" p:name="JAVA" p:author="马士兵"></bean>
+        <bean id="b2" class="cn.org.geneplus.bean.Book" p:name="Go" p:author="马士兵"></bean>
+        <bean id="b3" class="cn.org.geneplus.bean.Book" p:name="JVM" p:author="马士兵"></bean>
+    </util:list>
+
+
+    <!-- 简单方式直接给对象注入集合 -->
+    <bean id="student2" class="cn.org.geneplus.bean.Student">
+        <!-- 注入数组 -->
+        <property name="bookArrays">
+            <array>
+                <value>book1</value>
+                <value>book2</value>
+                <value>book3</value>
+                <value>book4</value>
+            </array>
+        </property>
+
+        <!-- 集合注入 -->
+        <property name="bookSet">
+            <set>
+                <value>book1</value>
+                <value>book2</value>
+                <value>book3</value>
+                <value>book4</value>
+            </set>
+        </property>
+
+        <!-- 列表注入 -->
+        <property name="bookList">
+            <list>
+                <value>book1</value>
+                <value>book2</value>
+                <value>book3</value>
+                <value>book4</value>
+            </list>
+        </property>
+
+        <!-- map注入 -->
+        <property name="bookMap">
+            <map>
+                <entry key="book1" value="author1"></entry>
+                <entry key="book2" value="author2"></entry>
+                <entry key="book3" value="author3"></entry>
+                <entry key="book4" value="author4"></entry>
+            </map>
+        </property>
+
+        <!-- 集合注入对象，引入外部对象集合 -->
+        <property name="bookObjList" ref="outerbookList"></property>
+
+
+
+    </bean>
+
+    <!-- 这里创建了外部对象，后面引入到对象集合中 -->
+<!--    <bean id="b1" class="cn.org.geneplus.bean.Book" p:name="JAVA" p:author="马士兵"></bean>-->
+<!--    <bean id="b2" class="cn.org.geneplus.bean.Book" p:name="Go" p:author="马士兵"></bean>-->
+<!--    <bean id="b3" class="cn.org.geneplus.bean.Book" p:name="JVM" p:author="马士兵"></bean>-->
+
+</beans>

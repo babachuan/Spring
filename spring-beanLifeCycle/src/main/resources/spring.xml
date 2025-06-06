@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="user" class="cn.org.geneplus.bean.User" init-method="initUser" destroy-method="destroyUser">
+        <property name="name" value="张三"></property>
+    </bean>
+
+    <!-- 将自定义的BeanPostProcessor加入到IOC容器中，spring才知道，否则不生效 -->
+    <bean id="beanProcessor" class="cn.org.geneplus.beanProcessor.myBeanPorocessor"></bean>
+
+</beans>

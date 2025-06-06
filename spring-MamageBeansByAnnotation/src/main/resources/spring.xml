@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+
+">
+    <!--添加注解扫描,扫描指定的包,将包中的所有有注解的类实例化
+        base-package 后面放要扫描的包
+        如果有多个包需要扫描,可以使用逗号隔开  com.msb.bean,com.msb.service
+        或者可以写上一层包路径  com.msb
+        可以通过注解指定bean的id@Component("user1")
+        如果不指定,则id默认是 类名首字母小写
+        -->
+
+    <!-- 包扫描过滤器使用
+    第一步：关闭默认的包扫描use-default-filters="false"，如果不关闭，会默认扫描@Component,@Service,@Controller,@Repository
+    第二步：添加过滤器
+    context:include-filter: 设置扫描指定类型的bean
+    context:exclude-filter: 设置不扫描指定类型的bean
+    -->
+
+    <context:component-scan base-package="cn.org.geneplus.bean" use-default-filters="false">
+        <!-- 设置扫描Controller注解的bean -->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+
+</beans>

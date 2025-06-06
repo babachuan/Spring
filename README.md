@@ -30,9 +30,17 @@ maven:  3.5.4
 - JDK版本：Oracle JDK 21
 
 
-  | Samples                                                      | Description                          | Toplink                                                      |
-  | ------------------------------------------------------------ |--------------------------------------| ------------------------------------------------------------ |
-  | [Spring6.2.6](spring/spring-ioc-xml/Spring6.2.6)          | Spring IOC控制反转，xml方式，并且通过junit进行调用测试 | |
+  | Samples                                          | Description                          | Toplink |
+  |--------------------------------------------------|--------------------------------------|---------|
+  | [Spring6.2.6](spring/spring-ioc-xml/Spring6.2.6) | Spring IOC控制反转，xml方式，并且通过junit进行调用测试 |         |
+  | [spring-bean-quote](spring-bean-quote)        | bean的引用，内部引用和外部引用，xml方式              |         | 
+  | [spring-Inject-collection](spring-Inject-collection) | 通过xml方式注入集合（list,map,set,array）      |         |
+  | [spring-beanFactory](spring-beanFactory)| 通过实现FactoryBean接口，实现自定义的bean         |         |
+  | [spring-beanLifeCycle](spring-beanLifeCycle) | bean的生命周期(五阶段、七阶段）                   |         |
+  | [spring-AutomaticAssembly](spring-AutomaticAssembly) | bean的自动装配                            |         | 
+  | [spring-ImportExternalFiles](spring-ImportExternalFiles)  | 导入外部文件（配置）                           | |
+  | [spring-MamageBeansByAnnotation](spring-MamageBeansByAnnotation) | 通过注解包扫描创建bean                        | |
+   | [spring-proxy](spring-proxy)  | 静态代理/JDK动态代理、CGLIB动态代理                           | |
 
 
 

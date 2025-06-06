@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 这里定义一个bean，下面employee会自动根据相关的属性自动注入 -->
+    <bean id="dep" class="cn.org.geneplus.bean.Dep">
+        <property name="name" value="检测平台"></property>
+        <property name="area" value="深圳"></property>
+    </bean>
+
+    <bean id="hobby" class="cn.org.geneplus.bean.Hobby">
+        <property name="hobyname" value="看书"></property>
+        <property name="type" value="个人爱好"></property>
+    </bean>
+
+
+    <!-- 这里定义一个bean，使用autowire属性，可以根据名字，也可以根据类型，自动根据相关的属性自动注入 -->
+    <bean id="employee" class="cn.org.geneplus.bean.Employee" autowire="byName">
+        <property name="name" value="张三"></property>
+    </bean>
+
+    <!-- 根据类型进行自动装配，注意，如果是根据类型，那么必须保证这个类型在spring容器中唯一 -->
+    <bean id="employee2" class="cn.org.geneplus.bean.Employee" autowire="byType">
+        <property name="name" value="李四"></property>
+    </bean>
+
+</beans>
