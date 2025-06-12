@@ -38,9 +38,12 @@ maven:  3.5.4
   | [spring-beanFactory](spring-beanFactory)| 通过实现FactoryBean接口，实现自定义的bean         |         |
   | [spring-beanLifeCycle](spring-beanLifeCycle) | bean的生命周期(五阶段、七阶段）                   |         |
   | [spring-AutomaticAssembly](spring-AutomaticAssembly) | bean的自动装配                            |         | 
-  | [spring-ImportExternalFiles](spring-ImportExternalFiles)  | 导入外部文件（配置）                           | |
-  | [spring-MamageBeansByAnnotation](spring-MamageBeansByAnnotation) | 通过注解包扫描创建bean                        | |
-   | [spring-proxy](spring-proxy)  | 静态代理/JDK动态代理、CGLIB动态代理                           | |
+  | [spring-ImportExternalFiles](spring-ImportExternalFiles)  | 导入外部文件（配置）                           |         |
+  | [spring-MamageBeansByAnnotation](spring-MamageBeansByAnnotation) | 通过注解包扫描创建bean                        |         |
+  | [spring-proxy](spring-proxy)  | 静态代理/JDK动态代理、CGLIB动态代理               |         |
+  | [spring-AOP](spring-AOP) | Spring AOP                           |         |
+| [spring-AOP-byAnnotation](spring-AOP-byAnnotation)| 对注解实现AOP                             |         |
+| [spring-AOP-Advice](spring-AOP-Advice)| spring AOP 五种通知                      |         |
 
 
 
