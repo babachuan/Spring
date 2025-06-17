@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,6 +77,24 @@ public class UserDaoImplTest extends TestCase {
         UserDao userDao = (UserDao) applicationContext.getBean("userDaoImpl",UserDaoImpl.class);
         List<User> allUsers = userDao.getAllUsers();
         allUsers.forEach(System.out::println);
+    }
+
+    // 测试批量插入
+    @Test
+    public void testBatchInsert()
+    {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("Spring.xml");
+        UserDaoImpl userDaoImpl = applicationContext.getBean("userDaoImpl",UserDaoImpl.class);
+        User user1 = new User("张三飞",18);
+        User user2 = new User("王五强",19);
+        User user3 = new User("屈海川",18);
+
+        List<User> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+
+        userDaoImpl.batchInsertUsers(users);
     }
 
 }
